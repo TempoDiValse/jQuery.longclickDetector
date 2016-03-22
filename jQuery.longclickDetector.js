@@ -1,5 +1,5 @@
 ( function($){
-	
+	// touch constant
 	var touchStart = 'touchstart';
 	var touchEnd = 'touchend';
 	var touchMove = 'touchmove';
@@ -8,7 +8,7 @@
 	var timerID;
  
 	var pX, pY;
-	var BOUNDS = 10;
+	var BOUNDS = 10; // tap area bound
 	
 	$.fn.enableLongClick = function(_callback, _duration){
 		callback = _callback;
@@ -26,15 +26,20 @@
  
 			timerID = setTimeout(function(){
 				// 현재 포커스가 들어간 객체의 ID 값을 알려준다. 
-				// (밖에서 .attr('id')로 하면 마지막 foreach 객체 ID값만 불러옴)
+				// Get id value of current focused.
 				var targetID = e.target.id;
 				targetID = targetID.substring(0, targetID.length - 2);
  
 				//콜백으로 던져준다.
+				// Send results to callback
+				// @param targetID Object id
+				// @param e.pageX x-axis touch point 
+				// @param e.pageY y-axis touch point
 				return callback(targetID, e.pageX, e.pageY);
 			}, duration);
  
 			//Duration에 못미쳐 터치가 끝나면 fire
+			//It will be fired while moving or detaching user's finger from screen before timeout
 		}else if(type == touchEnd){
 			clearTimeout(timerID);
 		}else if(type == touchMove){
@@ -48,6 +53,8 @@
 			var bright = pX + (BOUNDS / 2);
 			var bbottom = pY + (BOUNDS / 2);
 			
+			// 탭을 2번할 때, 움직임으로 자동적으로 timeout 이벤트가 해제되는 것을 방지
+			// To prevent releasing timeout event when the user tap an object twice
 			if(!(cX >= bleft && cX <= bright && cY >= btop && cY < bbottom)){
 				clearTimeout(timerID);
 			}
