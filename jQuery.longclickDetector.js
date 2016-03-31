@@ -28,7 +28,6 @@
 				// 현재 포커스가 들어간 객체의 ID 값을 알려준다. 
 				// Get id value of current focused.
 				var targetID = e.target.id;
-				targetID = targetID.substring(0, targetID.length - 2);
  
 				//콜백으로 던져준다.
 				// Send results to callback
