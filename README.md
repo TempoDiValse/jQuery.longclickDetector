@@ -6,6 +6,11 @@
 ```
 /**
   $("#obj").enableLongClick(callback, duration);
+  
+  -callback param
+  @param id - target id
+  @param x - x position of touch point
+  @param y - y position of touch point
 */
 $("#obj").enableLongClick(function(id, x, y){
   /* Code here  */
